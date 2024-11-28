@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.2'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'org.tragoIT'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.3.3'
+    implementation 'org.springframework.security:spring-security-crypto:6.3.3'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'com.auth0:java-jwt:4.4.0'
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+    implementation 'jakarta.validation:jakarta.validation-api:2.0.2'
+    implementation 'org.postgresql:postgresql:42.7.2'
+    implementation 'com.mysql:mysql-connector-j:9.0.0'
+    implementation 'org.mapstruct:mapstruct:1.6.0'
+    implementation 'org.springframework.boot:spring-boot-starter-mail:3.3.4'
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+jar {
+    manifest {
+        // This is the main class to start the calculation server
+        attributes 'Main-Class': 'org.tragoIT.TragoITApplication'
+        // This is needed for the shadowed Jar build
+        // see https://stackoverflow.com/questions/52953483/logmanager-getlogger-is-unable-to-determine-class-name-on-java-11
+        attributes 'Multi-Release': 'true'
+    }
+}
+
+
+test {
+    useJUnitPlatform()
+}
